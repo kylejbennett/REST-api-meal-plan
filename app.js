@@ -1,21 +1,25 @@
-var express = require('express');
-var app = express();
-var bodyParser = require('body-parser');
-var mongoose = require('mongoose');
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 require('dotenv/config');
 
 // Connect to Mongoose
 mongoose.connect(
-	process.env.DB_CONNECTION,
-	{ useNewUrlParser: true, useUnifiedTopology: true },
-	() => console.log('Connected to DB')
+	process.env.DB_CONNECTION, { useNewUrlParser: true, useUnifiedTopology: true }
 );
 
-var db = mongoose.connection;
+const db = mongoose.connection;
+db.on('error', (error) => console.error(error));
+db.once('open', () => console.log('Connected to DB!'))
+
+app.use(express.json());
 
 app.get('/', function(req, res){
-	res.send('Hello World!')
+	res.send('Home');
 });
 
-app.listen(5000);
-console.log('Running on Port 5000!');
+const ingredientsRouter = require('./routes/ingredients');
+app.use('/ingredients', ingredientsRouter);
+
+app.listen(5000, () => console.log('Running on Port 5000!'));
