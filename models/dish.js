@@ -11,19 +11,18 @@ var dishSchema = mongoose.Schema({
 		required: true
 	},
 	ingredients:{
-		type: String,
-		required: true
+		type: Array,
 	},
 	categories:{
 		type: String,
-		required: true
 	},
 	recipe_url:{
 		type: String,
-		required: true
 	},
 	create_date:{
 		type: Date,
 		default: Date.now
 	}
 });
+
+module.exports = mongoose.model('Dish', dishSchema);

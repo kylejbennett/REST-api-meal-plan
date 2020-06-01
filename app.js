@@ -22,4 +22,7 @@ app.get('/', function(req, res){
 const ingredientsRouter = require('./routes/ingredients');
 app.use('/ingredients', ingredientsRouter);
 
+const dishesRouter = require('./routes/dishes');
+app.use('/dishes', dishesRouter);
+
 app.listen(5000, () => console.log('Running on Port 5000!'));

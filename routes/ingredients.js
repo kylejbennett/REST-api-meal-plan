@@ -3,7 +3,7 @@ const router = express.Router();
 const Ingredient = require('../models/ingredient');
 
 // Get all ingredients
-router.get('/', async (req, res) => {
+router.get('/', async(req, res) => {
 	try {
 		const ingredients = await Ingredient.find();
 		res.json(ingredients);	
@@ -18,7 +18,7 @@ router.get('/:id', getIngredient, (req, res) => {
 })
 
 // Create one ingredient
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
 	const ingredient = new Ingredient({
 		name: req.body.name,
 		ingredient_type: req.body.ingredient_type
@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
 })
 
 // Update one ingredient
-router.patch('/:id', getIngredient, async (req, res) => {
+router.patch('/:id', getIngredient, async(req, res) => {
 	if (req.body.name != null) {
 		res.ingredient.name = req.body.name
 	}
@@ -51,7 +51,7 @@ router.patch('/:id', getIngredient, async (req, res) => {
 })
 
 // Delete one ingredient
-router.delete('/:id', getIngredient, async (req, res) => {
+router.delete('/:id', getIngredient, async(req, res) => {
 	try {
 		await res.ingredient.remove()
 		res.json({ message: 'Deleted This Ingredient' })
