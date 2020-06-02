@@ -22,6 +22,9 @@ app.get('/', function(req, res){
 const ingredientsRouter = require('./routes/ingredients');
 app.use('/ingredients', ingredientsRouter);
 
+const ingredientTypesRouter = require('./routes/ingredient_types');
+app.use('/ingredient_types', ingredientTypesRouter);
+
 const dishesRouter = require('./routes/dishes');
 app.use('/dishes', dishesRouter);
 
