@@ -1,7 +1,8 @@
 var mongoose = require('mongoose');
+var Schema = mongoose.Schema;
 
 // Dish Schema
-var dishSchema = mongoose.Schema({
+var dishSchema = new Schema({
 	name:{
 		type: String,
 		required: true
@@ -10,12 +11,14 @@ var dishSchema = mongoose.Schema({
 		type: String,
 		required: true
 	},
-	ingredients:{
-		type: Array,
-	},
-	categories:{
-		type: String,
-	},
+	ingredients:[{
+		type: Schema.Types.ObjectId,
+		ref: "Ingredient"
+	}],
+	categories:[{
+		type: Schema.Types.ObjectId,
+		ref: "Category"
+	}],
 	recipe_url:{
 		type: String,
 	},

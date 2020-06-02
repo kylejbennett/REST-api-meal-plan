@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Ingredient = require('../models/ingredient');
+const IngredientType = require('../models/ingredient_type');
 
 // Get all ingredients
 router.get('/', async(req, res) => {
@@ -19,15 +20,16 @@ router.get('/:id', getIngredient, (req, res) => {
 
 // Create one ingredient
 router.post('/', async(req, res) => {
-	const ingredient = new Ingredient({
-		name: req.body.name,
-		ingredient_type: req.body.ingredient_type
-	})
-
 	try {
+		const ingredientTypeQuery = await IngredientType.find({"name":req.body.ingredient_type});
+		const ingredientTypeId = (ingredientTypeQuery[0] ? ingredientTypeQuery[0]._id : "");
+		const ingredient = new Ingredient({
+			name: req.body.name,
+			ingredient_type: ingredientTypeId
+		});
 		const newIngredient = await ingredient.save()
 		res.status(201).json(newIngredient)
-	} catch (err) {
+	} catch(err) {
 		res.status(400).json({ message: err.message })
 	}
 })
